@@ -22,6 +22,11 @@ def test():
     root = TreeNode(1)
     root.left = TreeNode(3)
     root.left.right = TreeNode(2)
+
+    return search(root)
+    
+
+def search(root):
     prev_node = TreeNode(-float('inf'))
     x = y = None
     for node in inorder(root):
@@ -33,9 +38,7 @@ def test():
                 y = node
                 break
         prev_node = node
-    print(x.val)
-    print(y.val)
-    
+    x.val, y.val = y.val, x.val
     
     
 def inorder(root):
@@ -53,5 +56,3 @@ def inorder(root):
             yield node
 
 
-def test1():
-    pass
