@@ -4,6 +4,8 @@ class TreeNode:
         self.left = None
         self.right = None
 
+
+# 94.
 def test():
     # Create a simple binary tree
     #         1
@@ -107,3 +109,48 @@ def postorderTravelsal(root):
         else:
             res.append(node.val)
     return res
+
+class ClassicTrav:
+    
+    def inorderTraversal(self, root):
+        stack, result = [], []
+        current = root
+        while current or stack:
+            while current:
+                stack.append(current)
+                current = current.left
+            current = stack.pop()
+            result.append(current.value)
+            current = current.right
+        return result
+    
+    def preorderTraversal(self, root):
+        if not root:
+            return []
+        stack, result = [root], []
+        while stack:
+            current = stack.pop()
+            result.append(current.value)
+            # Right child is pushed first so that left is processed first
+            if current.right:
+                stack.append(current.right)
+            if current.left:
+                stack.append(current.left)
+        return result
+    def postorderTraversal(self, root):
+        if not root:
+            return []
+        stack1, stack2, result = [root], [], []
+        while stack1:
+            current = stack1.pop()
+            stack2.append(current)
+            # Left child is pushed first so that right is processed first in the next stack
+            if current.left:
+                stack1.append(current.left)
+            if current.right:
+                stack1.append(current.right)
+        while stack2:
+            result.append(stack2.pop().value)
+        return result
+    
+    
