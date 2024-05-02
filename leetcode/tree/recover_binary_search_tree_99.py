@@ -25,20 +25,43 @@ def test():
 
     return search(root)
     
+def test2():
+    # Example
+    #         3
+    #        / \
+    #       1   4
+    #          /
+    #         2
+    # need to change to
+    #         2
+    #        / \
+    #       1   4
+    #          /
+    #         3
+    root = TreeNode(3)
+    root.left = TreeNode(1)
+    root.right = TreeNode(4)
+    root.right.left = TreeNode(2)
+
+    return search(root)
 
 def search(root):
     prev_node = TreeNode(-float('inf'))
     x = y = None
+    seq = []
     for node in inorder(root):
+        seq.append(node.val)
         if x is None:
             if node.val < prev_node.val:
                 x = prev_node
+                y = node
         else:
             if node.val < prev_node.val:
                 y = node
                 break
         prev_node = node
-    x.val, y.val = y.val, x.val
+    if not x and not y:
+        x.val, y.val = y.val, x.val
     
     
 def inorder(root):
